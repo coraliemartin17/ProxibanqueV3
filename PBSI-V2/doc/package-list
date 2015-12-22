@@ -1,0 +1,7 @@
+fr.gtm.proxibanquesi.dao
+fr.gtm.proxibanquesi.dao.util
+fr.gtm.proxibanquesi.domaine
+fr.gtm.proxibanquesi.exceptions
+fr.gtm.proxibanquesi.front.servlets
+fr.gtm.proxibanquesi.service
+fr.gtm.proxibanquesi.test

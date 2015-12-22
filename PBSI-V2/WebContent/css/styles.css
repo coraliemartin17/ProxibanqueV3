@@ -1,0 +1,20 @@
+@CHARSET "ISO-8859-1";
+
+.bg_img {
+	background-image: url("fond.jpeg");
+}
+
+.bottom {
+	position: absolute;
+	top: 910px;
+}
+
+#bord {
+    border: 1px solid black;
+    padding: 35px;
+    background-color : #c6d9ec;
+}
+
+.maClasse {
+	background-color : white;
+}

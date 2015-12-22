@@ -1,0 +1,102 @@
+ ---------------------------------------------------------------
+ --        Script Oracle.  
+ ---------------------------------------------------------------
+
+
+------------------------------------------------------------
+-- Table: Conseiller
+------------------------------------------------------------
+CREATE TABLE Conseiller(
+	idcons     NUMBER(10,0)  NOT NULL  ,
+	nom   VARCHAR2 (60)  ,
+	prenom  VARCHAR2 (60) NOT NULL  ,
+	iduser     NUMBER(10,0)   ,
+	idagence   NUMBER(10,0)   ,
+	CONSTRAINT Conseiller_Pk PRIMARY KEY (idcons)
+);
+CREATE SEQUENCE SEQ_idcons;
+
+------------------------------------------------------------
+-- Table: User
+------------------------------------------------------------
+CREATE TABLE Utilisateur(
+	iduser    NUMBER(10,0)  NOT NULL  ,
+	login     VARCHAR2 (60)  ,
+	mdp  VARCHAR2 (60)  ,
+	CONSTRAINT User_Pk PRIMARY KEY (iduser)
+);
+CREATE SEQUENCE SEQ_iduser;
+
+
+------------------------------------------------------------
+-- Table: Agence
+------------------------------------------------------------
+CREATE TABLE Agence(
+	idagence      NUMBER(10,0)  NOT NULL  ,
+	dateCreation  DATE  ,
+	idcons        NUMBER(10,0)   ,
+	CONSTRAINT Agence_Pk PRIMARY KEY (idagence)
+);
+CREATE SEQUENCE SEQ_idagence;
+
+CREATE TABLE client(
+	idclient    NUMBER(10,0)  NOT NULL  ,
+	nom         VARCHAR2 (60) NOT NULL ,
+	prenom      VARCHAR2 (60)  ,
+	adresse     VARCHAR2 (60)  ,
+	codepostal  VARCHAR2 (25)  ,
+	ville       VARCHAR2 (60)  ,
+	telephone   VARCHAR2 (25)  ,
+	idcons      NUMBER(10,0)   ,
+	CONSTRAINT client_Pk PRIMARY KEY (idclient)
+);
+CREATE SEQUENCE SEQ_idclient;
+------------------------------------------------------------
+-- Table: compte
+------------------------------------------------------------
+CREATE TABLE compte(
+	numcompte      NUMBER(10,0)  NOT NULL  ,
+	type           VARCHAR2 (25)  ,
+	solde          NUMBER    ,
+	taux           FLOAT   ,
+	autodecouvert  NUMBER   ,
+	idclient       NUMBER(10,0)   ,
+	CONSTRAINT compte_Pk PRIMARY KEY (numcompte)
+);
+CREATE SEQUENCE SEQ_numcompte;
+------------------------------------------------------------
+-- Table: CB
+------------------------------------------------------------
+CREATE TABLE CB(
+	numcb      NUMBER(10,0)  NOT NULL  ,
+	type       VARCHAR2 (25)  ,
+	numcompte  NUMBER(10,0)   ,
+	CONSTRAINT CB_Pk PRIMARY KEY (numcb)
+);
+CREATE SEQUENCE SEQ_numcb;
+
+------------------------------------------------------------
+-- Table: placement
+------------------------------------------------------------
+CREATE TABLE placement(
+	idplacement  NUMBER(10,0)  NOT NULL  ,
+	bourse       VARCHAR2 (25)  ,
+	montant      NUMBER   ,
+	idclient     NUMBER(10,0)   ,
+	CONSTRAINT placement_Pk PRIMARY KEY (idplacement)
+);
+CREATE SEQUENCE SEQ_idplacement;
+
+
+
+ALTER TABLE Conseiller ADD FOREIGN KEY (iduser) REFERENCES Utilisateur(iduser);
+ALTER TABLE Conseiller ADD FOREIGN KEY (idagence) REFERENCES Agence(idagence);
+ALTER TABLE Agence ADD FOREIGN KEY (idcons) REFERENCES Conseiller(idcons);
+ALTER TABLE client ADD FOREIGN KEY (idcons) REFERENCES Conseiller(idcons);
+ALTER TABLE compte ADD FOREIGN KEY (idclient) REFERENCES client(idclient);
+ALTER TABLE CB ADD FOREIGN KEY (numcompte) REFERENCES compte(numcompte);
+ALTER TABLE placement ADD FOREIGN KEY (idclient) REFERENCES client(idclient);
+
+ALTER TABLE utilisateur MODIFY login NOT NULL;
+
+

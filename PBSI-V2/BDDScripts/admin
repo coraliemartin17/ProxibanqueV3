@@ -1,0 +1,5 @@
+create user proxibanque identified by proxipass;
+grant create session to proxibanque;
+grant create table to proxibanque;
+grant create sequence to proxibanque;
+grant unlimited tablespace to proxibanque;
